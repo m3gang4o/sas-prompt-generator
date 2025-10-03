@@ -1,0 +1,48 @@
+{
+  "name": "sas-prompt-generator",
+  "version": "1.0.0",
+  "description": "A user-friendly web application that streamlines AI prompt generation for SAS marketing and design teams",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/index.html",
+    "lint": "npx eslint script.js",
+    "validate": "npx html-validate index.html"
+  },
+  "keywords": [
+    "sas",
+    "brand-guidelines",
+    "prompt-generator",
+    "ai-tools",
+    "design-tools",
+    "marketing-tools",
+    "accessibility",
+    "responsive-design"
+  ],
+  "author": "SAS Institute Inc.",
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sas-institute/sas-prompt-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sas-institute/sas-prompt-generator/issues"
+  },
+  "homepage": "https://github.com/sas-institute/sas-prompt-generator#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "html-validate": "^8.0.0",
+    "http-server": "^14.0.0",
+    "live-server": "^1.2.2"
+  },
+  "browserslist": [
+    "Chrome >= 60",
+    "Firefox >= 55",
+    "Safari >= 12",
+    "Edge >= 79"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

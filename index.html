@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAS Prompt Generator | Brand-Compliant AI Assistant</title>
+    <meta name="description" content="Generate AI prompts that follow SAS brand guidelines for marketing and design projects">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="sas-logo.svg" alt="SAS Logo" class="sas-logo-svg">
+                    <h1 class="app-title">Brand Prompt Generator</h1>
+                </div>
+                <p class="tagline">AI Prompts That Follow SAS Guidelines</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Brand Guidelines Banner -->
+    <section class="brand-banner">
+        <div class="container">
+            <div class="brand-banner-content">
+                <div class="banner-icon">📋</div>
+                <div class="banner-text">
+                    <h3>Powered by Official SAS Brand Guidelines</h3>
+                    <p>All prompts reference the official <strong>SAS Brand Guidelines (sas-brand-guidelines.pdf)</strong> to ensure brand compliance</p>
+                </div>
+                <a href="sas-brand-guidelines.pdf" target="_blank" class="guidelines-link">
+                    <span>View Guidelines</span>
+                    <span class="link-icon">↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h2 class="hero-title">Generate Brand-Compliant AI Prompts in Seconds</h2>
+            <p class="hero-subtitle">
+                Create customized prompts for marketing campaigns, design reviews, and creative projects 
+                that automatically follow SAS brand guidelines.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Generator -->
+    <main class="main-content">
+        <div class="container">
+            <div class="generator-card">
+                <form class="prompt-form" id="promptForm">
+                    <!-- Quick Task Selection -->
+                    <div class="task-selection">
+                        <h3>What do you need help with?</h3>
+                        <div class="task-buttons">
+                            <button type="button" class="task-btn" data-task="brand-review">
+                                <span class="task-icon">🛡️</span>
+                                <span class="task-text">Brand Review</span>
+                                <span class="task-desc">Check designs, copy, or assets</span>
+                            </button>
+                            <button type="button" class="task-btn" data-task="copy-writing">
+                                <span class="task-icon">✏️</span>
+                                <span class="task-text">Copy Writing</span>
+                                <span class="task-desc">Create or improve marketing copy</span>
+                            </button>
+                            <button type="button" class="task-btn" data-task="design-feedback">
+                                <span class="task-icon">🎨</span>
+                                <span class="task-text">Design Feedback</span>
+                                <span class="task-desc">Get design suggestions & improvements</span>
+                            </button>
+                            <button type="button" class="task-btn" data-task="creative-concepts">
+                                <span class="task-icon">💡</span>
+                                <span class="task-text">Creative Ideas</span>
+                                <span class="task-desc">Generate campaign concepts</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Input -->
+                    <div class="input-section">
+                        <label for="projectInput" class="input-label">
+                            Describe your project or what you need:
+                        </label>
+                        <textarea 
+                            id="projectInput" 
+                            name="projectInput" 
+                            rows="4" 
+                            placeholder="e.g., Review my SAS Innovate 2026 landing page design for brand compliance..."
+                            class="main-input"
+                        ></textarea>
+                        
+                        <!-- Optional File Upload -->
+                        <div class="upload-section">
+                            <div class="upload-area" id="uploadArea">
+                                <span class="upload-icon">📎</span>
+                                <span class="upload-text">Attach file (optional)</span>
+                                <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt,.figma" hidden>
+                            </div>
+                            <div class="uploaded-file" id="uploadedFile" style="display: none;">
+                                <span class="file-name"></span>
+                                <button type="button" class="remove-file" id="removeFile">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button type="submit" class="generate-btn" id="generateBtn">
+                        <span class="btn-text">Generate SAS-Compliant Prompt</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <div class="results-header">
+                        <h3>Your Brand-Compliant Prompt</h3>
+                        <p>Copy this prompt and paste it into ChatGPT, Claude, or your preferred AI tool:</p>
+                    </div>
+                    
+                    <div class="prompt-output">
+                        <div class="prompt-text" id="promptText"></div>
+                        <div class="prompt-actions">
+                            <button type="button" class="copy-btn" id="copyBtn">
+                                <span class="copy-icon">📋</span>
+                                Copy Prompt
+                            </button>
+                            <button type="button" class="new-prompt-btn" id="newPromptBtn">
+                                Generate Another
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="copy-feedback" id="copyFeedback" style="display: none;">
+                        ✅ Copied to clipboard! Ready to paste into your AI tool.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Examples -->
+            <div class="examples-section">
+                <h3>Popular Use Cases</h3>
+                <div class="examples-grid">
+                    <div class="example-card" data-example="campaign">
+                        <h4>Campaign Review</h4>
+                        <p>"Review my Q4 product launch campaign materials for SAS brand compliance"</p>
+                    </div>
+                    <div class="example-card" data-example="website">
+                        <h4>Website Copy</h4>
+                        <p>"Create homepage copy for our new analytics solution that follows SAS voice guidelines"</p>
+                    </div>
+                    <div class="example-card" data-example="social">
+                        <h4>Social Media</h4>
+                        <p>"Generate LinkedIn post ideas for SAS Innovate conference that match our brand tone"</p>
+                    </div>
+                    <div class="example-card" data-example="email">
+                        <h4>Email Marketing</h4>
+                        <p>"Improve this email subject line to be more engaging while staying on-brand"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Guidelines Reference -->
+            <div class="guidelines-section">
+                <div class="guidelines-card">
+                    <div class="guidelines-header">
+                        <h3>🎯 SAS Brand Guidelines Compliance</h3>
+                        <a href="sas-brand-guidelines.pdf" target="_blank" class="guidelines-download">
+                            <span>Download Guidelines PDF</span>
+                            <span class="download-icon">📄</span>
+                        </a>
+                    </div>
+                    <div class="guidelines-grid">
+                        <div class="guideline-item">
+                            <strong>Colors:</strong> SAS Blue (#0766D1), proper accent usage
+                        </div>
+                        <div class="guideline-item">
+                            <strong>Voice:</strong> Bold, accessible, dynamic, relevant
+                        </div>
+                        <div class="guideline-item">
+                            <strong>Typography:</strong> Anova font family guidelines
+                        </div>
+                        <div class="guideline-item">
+                            <strong>Reference:</strong> sas-brand-guidelines.pdf
+                        </div>
+                    </div>
+                    <div class="guidelines-note">
+                        <p><strong>Note:</strong> All generated prompts automatically reference the official SAS Brand Guidelines document to ensure consistent brand compliance across all AI-generated content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <img src="sas-logo.svg" alt="SAS Logo" class="footer-logo">
+                    <p>&copy; 2024 SAS Institute Inc. | Marketing & Design Team Tool</p>
+                </div>
+                <div class="footer-right">
+                    <a href="sas-brand-guidelines.pdf" target="_blank" class="footer-guidelines-link">
+                        Brand Guidelines PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
