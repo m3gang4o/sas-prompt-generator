@@ -169,6 +169,7 @@ class SASPromptGenerator {
         // Copy and reset buttons
         document.getElementById('copyBtn').addEventListener('click', () => this.copyPrompt());
         document.getElementById('newPromptBtn').addEventListener('click', () => this.resetForm());
+        document.getElementById('clearBtn').addEventListener('click', () => this.clearForm());
 
         // Input validation
         document.getElementById('projectInput').addEventListener('input', () => this.updateGenerateButton());
@@ -305,11 +306,11 @@ class SASPromptGenerator {
         generateBtn.disabled = !isValid;
         
         if (isValid) {
-            generateBtn.querySelector('.btn-text').textContent = 'Generate SAS-Compliant Prompt';
+            generateBtn.querySelector('.btn-text').textContent = 'GENERATE';
         } else if (!this.selectedTask) {
-            generateBtn.querySelector('.btn-text').textContent = 'Select a task type above';
+            generateBtn.querySelector('.btn-text').textContent = 'SELECT TASK FIRST';
         } else if (projectInput.length <= 10) {
-            generateBtn.querySelector('.btn-text').textContent = 'Describe your project in more detail';
+            generateBtn.querySelector('.btn-text').textContent = 'ADD MORE DETAILS';
         }
     }
 
@@ -339,6 +340,20 @@ Please analyze the uploaded file in conjunction with the above instructions and 
     displayPrompt(prompt) {
         document.getElementById('promptText').textContent = prompt;
         document.getElementById('resultsSection').style.display = 'block';
+        
+        // Show appropriate reminder based on file upload
+        const fileReminder = document.getElementById('fileReminder');
+        const uploadTip = document.getElementById('uploadTip');
+        
+        if (this.uploadedFile && fileReminder) {
+            // Show urgent file reminder if user uploaded a file
+            fileReminder.style.display = 'block';
+            if (uploadTip) uploadTip.style.display = 'none';
+        } else if (uploadTip) {
+            // Show general tip if no file was uploaded
+            uploadTip.style.display = 'block';
+            if (fileReminder) fileReminder.style.display = 'none';
+        }
         
         // Scroll to result
         document.getElementById('resultsSection').scrollIntoView({ 
@@ -412,14 +427,38 @@ Please analyze the uploaded file in conjunction with the above instructions and 
         // Reset file upload
         this.removeFile();
         
-        // Hide result section
+        // Hide result section and all reminders
         document.getElementById('resultsSection').style.display = 'none';
+        const fileReminder = document.getElementById('fileReminder');
+        const uploadTip = document.getElementById('uploadTip');
+        if (fileReminder) fileReminder.style.display = 'none';
+        if (uploadTip) uploadTip.style.display = 'none';
         
         // Update button state
         this.updateGenerateButton();
         
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    clearForm() {
+        // Reset form fields only (keep results if they exist)
+        document.getElementById('projectInput').value = '';
+        
+        // Reset task selection
+        document.querySelectorAll('.task-btn').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        this.selectedTask = null;
+        
+        // Reset file upload
+        this.removeFile();
+        
+        // Update button state
+        this.updateGenerateButton();
+        
+        // Focus on first input
+        document.querySelector('.task-btn').focus();
     }
 
     showNotification(message, type = 'info') {

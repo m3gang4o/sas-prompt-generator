@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAS Prompt Generator | Brand-Compliant AI Assistant</title>
-    <meta name="description" content="Generate AI prompts that follow SAS brand guidelines for marketing and design projects">
+    <title>SAS Creative Prompt Generator | AI Assistant for Design & Marketing</title>
+    <meta name="description" content="Generate creative AI prompts for design, writing, copy, and marketing projects with built-in SAS brand compliance">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,77 +17,71 @@
             <div class="header-content">
                 <div class="logo-section">
                     <img src="sas-logo.svg" alt="SAS Logo" class="sas-logo-svg">
-                    <h1 class="app-title">Brand Prompt Generator</h1>
+                    <h1 class="app-title">Creative Prompt Generator</h1>
                 </div>
-                <p class="tagline">AI Prompts That Follow SAS Guidelines</p>
+                <p class="tagline">AI Prompts for Design, Writing & Marketing</p>
             </div>
         </div>
     </header>
 
-    <!-- Brand Guidelines Banner -->
-    <section class="brand-banner">
+    <!-- Brand Guidelines Notice -->
+    <section class="brand-notice">
         <div class="container">
-            <div class="brand-banner-content">
-                <div class="banner-icon">📋</div>
-                <div class="banner-text">
-                    <h3>Powered by Official SAS Brand Guidelines</h3>
-                    <p>All prompts reference the official <strong>SAS Brand Guidelines (sas-brand-guidelines.pdf)</strong> to ensure brand compliance</p>
+            <div class="notice-content">
+                <div class="notice-icon">📋</div>
+                <div class="notice-text">
+                    <strong>Important:</strong> All prompts follow official SAS Brand Guidelines
                 </div>
-                <a href="sas-brand-guidelines.pdf" target="_blank" class="guidelines-link">
-                    <span>View Guidelines</span>
-                    <span class="link-icon">↗</span>
+                <a href="sas-brand-guidelines.pdf" target="_blank" class="notice-link">
+                    <span>View Brand Guidelines PDF</span>
+                    <span class="external-icon">↗</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Form -->
     <section class="hero-section">
         <div class="container">
-            <h2 class="hero-title">Generate Brand-Compliant AI Prompts in Seconds</h2>
-            <p class="hero-subtitle">
-                Create customized prompts for marketing campaigns, design reviews, and creative projects 
-                that automatically follow SAS brand guidelines.
-            </p>
-        </div>
-    </section>
-
-    <!-- Main Generator -->
-    <main class="main-content">
-        <div class="container">
-            <div class="generator-card">
+            <div class="hero-content">
+                <div class="hero-badge">SAS CREATIVE TOOLS</div>
+                <h1 class="hero-title">AI Creative Prompt Generator</h1>
+                <p class="hero-subtitle">
+                    Generate professional AI prompts for design, writing, marketing, and creative projects.
+                    Built-in SAS brand compliance ensures consistent, professional results every time.
+                </p>
+            </div>
+            
+            <!-- Main Generator Form -->
+            <div class="generator-form-card">
                 <form class="prompt-form" id="promptForm">
-                    <!-- Quick Task Selection -->
-                    <div class="task-selection">
-                        <h3>What do you need help with?</h3>
+                    <!-- Task Selection -->
+                    <div class="form-section">
+                        <label class="form-label">Choose your creative task:</label>
                         <div class="task-buttons">
                             <button type="button" class="task-btn" data-task="brand-review">
                                 <span class="task-icon">🛡️</span>
                                 <span class="task-text">Brand Review</span>
-                                <span class="task-desc">Check designs, copy, or assets</span>
                             </button>
                             <button type="button" class="task-btn" data-task="copy-writing">
                                 <span class="task-icon">✏️</span>
                                 <span class="task-text">Copy Writing</span>
-                                <span class="task-desc">Create or improve marketing copy</span>
                             </button>
                             <button type="button" class="task-btn" data-task="design-feedback">
                                 <span class="task-icon">🎨</span>
                                 <span class="task-text">Design Feedback</span>
-                                <span class="task-desc">Get design suggestions & improvements</span>
                             </button>
                             <button type="button" class="task-btn" data-task="creative-concepts">
                                 <span class="task-icon">💡</span>
                                 <span class="task-text">Creative Ideas</span>
-                                <span class="task-desc">Generate campaign concepts</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Main Input -->
-                    <div class="input-section">
-                        <label for="projectInput" class="input-label">
-                            Describe your project or what you need:
+                    <!-- Project Input -->
+                    <div class="form-section">
+                        <label for="projectInput" class="form-label">
+                            Describe your project:
                         </label>
                         <textarea 
                             id="projectInput" 
@@ -97,7 +91,7 @@
                             class="main-input"
                         ></textarea>
                         
-                        <!-- Optional File Upload -->
+                        <!-- File Upload -->
                         <div class="upload-section">
                             <div class="upload-area" id="uploadArea">
                                 <span class="upload-icon">📎</span>
@@ -111,17 +105,22 @@
                         </div>
                     </div>
 
-                    <!-- Generate Button -->
-                    <button type="submit" class="generate-btn" id="generateBtn">
-                        <span class="btn-text">Generate SAS-Compliant Prompt</span>
-                        <span class="btn-icon">→</span>
-                    </button>
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="button" class="clear-btn" id="clearBtn">CLEAR FORM</button>
+                        <button type="submit" class="generate-btn" id="generateBtn">
+                            <span class="btn-text">GENERATE</span>
+                            <span class="btn-icon">✨</span>
+                        </button>
+                    </div>
+                    
+                    <p class="form-note">By continuing you agree to our <a href="sas-brand-guidelines.pdf" target="_blank">SAS Brand Guidelines</a></p>
                 </form>
-
+                
                 <!-- Results Section -->
                 <div class="results-section" id="resultsSection" style="display: none;">
                     <div class="results-header">
-                        <h3>Your Brand-Compliant Prompt</h3>
+                        <h3>🎉 Your Creative Prompt is Ready!</h3>
                         <p>Copy this prompt and paste it into ChatGPT, Claude, or your preferred AI tool:</p>
                     </div>
                     
@@ -141,12 +140,130 @@
                     <div class="copy-feedback" id="copyFeedback" style="display: none;">
                         ✅ Copied to clipboard! Ready to paste into your AI tool.
                     </div>
+                    
+                    <!-- File Upload Reminder -->
+                    <div class="file-reminder" id="fileReminder" style="display: none;">
+                        <div class="reminder-content">
+                            <span class="reminder-icon">⚠️</span>
+                            <div class="reminder-text">
+                                <strong>IMPORTANT: Don't forget to upload your file!</strong><br>
+                                You attached a file to this prompt. Make sure to also upload it to your AI tool (ChatGPT, Claude, etc.) when you paste this prompt.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- General File Upload Tip -->
+                    <div class="upload-tip" id="uploadTip" style="display: none;">
+                        <div class="tip-content">
+                            <span class="tip-icon">💡</span>
+                            <div class="tip-text">
+                                <strong>Pro Tip:</strong> When using this prompt with AI tools, remember to upload any relevant files to get the best results!
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <!-- Content Sections -->
+    <main class="main-content">
+        <div class="container">
+            <!-- What Is Section -->
+            <section class="content-section">
+                <h2>What Is a Creative Prompt Generator?</h2>
+                <p>
+                    A creative prompt generator is a tool that helps SAS marketing and design teams create 
+                    AI prompts for various creative projects. These prompts can be used for brand reviews, 
+                    copywriting, design feedback, and creative ideation while ensuring compliance with 
+                    SAS brand guidelines.
+                </p>
+                <p>Whether you are looking to use an AI tool like ChatGPT to:</p>
+                <ul class="feature-list">
+                    <li><a href="#" class="feature-link">Review brand compliance</a></li>
+                    <li><a href="#" class="feature-link">Create compelling copy</a></li>
+                    <li><a href="#" class="feature-link">Get design feedback</a></li>
+                    <li><a href="#" class="feature-link">Generate creative concepts</a></li>
+                </ul>
+                <p>
+                    This SAS Creative Prompt Generator will help. All generated prompts automatically 
+                    reference our official brand guidelines to ensure consistency.
+                </p>
+            </section>
+
+            <!-- Benefits Section -->
+            <section class="content-section">
+                <h2>Benefits of SAS Creative Prompt Generator</h2>
+                <p>
+                    Our prompt generator analyzes SAS brand guidelines to help teams generate engaging 
+                    and brand-compliant creative prompts. Let's explore the benefits of using the 
+                    SAS Creative Prompt Generator.
+                </p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <h3>1. Ensure Brand Compliance</h3>
+                        <p>
+                            The SAS Creative Prompt Generator automatically incorporates our brand guidelines, 
+                            ensuring all creative work maintains consistency with SAS standards for colors, 
+                            typography, voice, and visual identity.
+                        </p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <h3>2. Improve Creative Quality</h3>
+                        <p>
+                            Generate prompts that help AI tools understand SAS's unique voice and design 
+                            principles, resulting in higher-quality creative outputs that align with our 
+                            professional standards.
+                        </p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <h3>3. Save Time on Projects</h3>
+                        <p>
+                            Reduce time spent on briefing AI tools about SAS requirements. Our generator 
+                            provides comprehensive prompts that include all necessary context and guidelines 
+                            upfront.
+                        </p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <h3>4. Streamline Team Workflow</h3>
+                        <p>
+                            Provide consistent starting points for creative projects across marketing and 
+                            design teams, ensuring everyone works with the same brand standards and 
+                            quality expectations.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <div class="how-it-works-section">
+                <h3>How It Works</h3>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-icon">1️⃣</div>
+                        <h4>Choose Task</h4>
+                        <p>Select what type of creative work you need help with</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">2️⃣</div>
+                        <h4>Describe Project</h4>
+                        <p>Tell us about your goals and attach any relevant files</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">3️⃣</div>
+                        <h4>Get Your Prompt</h4>
+                        <p>Copy the generated prompt and use it with any AI tool</p>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Quick Examples -->
             <div class="examples-section">
-                <h3>Popular Use Cases</h3>
+                <h3>Popular Creative Projects</h3>
                 <div class="examples-grid">
                     <div class="example-card" data-example="campaign">
                         <h4>Campaign Review</h4>
@@ -171,7 +288,7 @@
             <div class="guidelines-section">
                 <div class="guidelines-card">
                     <div class="guidelines-header">
-                        <h3>🎯 SAS Brand Guidelines Compliance</h3>
+                        <h3>🎯 Built-in SAS Brand Compliance</h3>
                         <a href="sas-brand-guidelines.pdf" target="_blank" class="guidelines-download">
                             <span>Download Guidelines PDF</span>
                             <span class="download-icon">📄</span>
