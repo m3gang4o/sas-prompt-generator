@@ -6,9 +6,8 @@
     <title>SAS Creative Prompt Generator | AI Assistant for Design & Marketing</title>
     <meta name="description" content="Generate creative AI prompts for design, writing, copy, and marketing projects with built-in SAS brand compliance">
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Anova font will be loaded via SAS font service or local files -->
+    <!-- If Anova is not available, Arial will be used as fallback -->
 </head>
 <body>
     <!-- Header -->
@@ -19,26 +18,12 @@
                     <img src="sas-logo.svg" alt="SAS Logo" class="sas-logo-svg">
                     <h1 class="app-title">Creative Prompt Generator</h1>
                 </div>
-                <p class="tagline">AI Prompts for Design, Writing & Marketing</p>
+                <nav class="header-nav">
+                    <a href="about.html" class="nav-link">About This Tool</a>
+                </nav>
             </div>
         </div>
     </header>
-
-    <!-- Brand Guidelines Notice -->
-    <section class="brand-notice">
-        <div class="container">
-            <div class="notice-content">
-                <div class="notice-icon">📋</div>
-                <div class="notice-text">
-                    <strong>Important:</strong> All prompts follow official SAS Brand Guidelines
-                </div>
-                <a href="sas-brand-guidelines.pdf" target="_blank" class="notice-link">
-                    <span>View Brand Guidelines PDF</span>
-                    <span class="external-icon">↗</span>
-                </a>
-            </div>
-        </div>
-    </section>
 
     <!-- Hero Section with Form -->
     <section class="hero-section">
@@ -75,7 +60,42 @@
                                 <span class="task-icon">💡</span>
                                 <span class="task-text">Creative Ideas</span>
                             </button>
+                            <button type="button" class="task-btn" data-task="competitive-analysis">
+                                <span class="task-icon">📊</span>
+                                <span class="task-text">Competitive Analysis</span>
+                            </button>
                         </div>
+                    </div>
+
+                    <!-- Design Type Selection (shown only for Design Feedback) -->
+                    <div class="form-section" id="designTypeSection" style="display: none;">
+                        <label class="form-label">What type of design are you working on?</label>
+                        <div class="design-type-buttons">
+                            <button type="button" class="design-type-btn" data-design-type="web">
+                                <span class="design-type-icon">💻</span>
+                                <span class="design-type-text">Web/Digital Design</span>
+                                <span class="design-type-desc">Websites, apps, digital interfaces</span>
+                            </button>
+                            <button type="button" class="design-type-btn" data-design-type="print">
+                                <span class="design-type-icon">📄</span>
+                                <span class="design-type-text">Print/Analog Design</span>
+                                <span class="design-type-desc">Brochures, posters, physical materials</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Competitor Selection (shown only for Competitive Analysis) -->
+                    <div class="form-section" id="competitorSection" style="display: none;">
+                        <label for="competitorSelect" class="form-label">Select competitor to analyze against:</label>
+                        <select id="competitorSelect" class="competitor-select">
+                            <option value="">Choose a competitor...</option>
+                            <option value="Oracle">Oracle</option>
+                            <option value="Google">Google Cloud</option>
+                            <option value="Microsoft">Microsoft Azure</option>
+                            <option value="AWS">Amazon Web Services (AWS)</option>
+                            <option value="IBM">IBM</option>
+                            <option value="Dataiku">Dataiku</option>
+                        </select>
                     </div>
 
                     <!-- Project Input -->
@@ -166,155 +186,6 @@
         </div>
     </section>
 
-    <!-- Content Sections -->
-    <main class="main-content">
-        <div class="container">
-            <!-- What Is Section -->
-            <section class="content-section">
-                <h2>What Is a Creative Prompt Generator?</h2>
-                <p>
-                    A creative prompt generator is a tool that helps SAS marketing and design teams create 
-                    AI prompts for various creative projects. These prompts can be used for brand reviews, 
-                    copywriting, design feedback, and creative ideation while ensuring compliance with 
-                    SAS brand guidelines.
-                </p>
-                <p>Whether you are looking to use an AI tool like ChatGPT to:</p>
-                <ul class="feature-list">
-                    <li><a href="#" class="feature-link">Review brand compliance</a></li>
-                    <li><a href="#" class="feature-link">Create compelling copy</a></li>
-                    <li><a href="#" class="feature-link">Get design feedback</a></li>
-                    <li><a href="#" class="feature-link">Generate creative concepts</a></li>
-                </ul>
-                <p>
-                    This SAS Creative Prompt Generator will help. All generated prompts automatically 
-                    reference our official brand guidelines to ensure consistency.
-                </p>
-            </section>
-
-            <!-- Benefits Section -->
-            <section class="content-section">
-                <h2>Benefits of SAS Creative Prompt Generator</h2>
-                <p>
-                    Our prompt generator analyzes SAS brand guidelines to help teams generate engaging 
-                    and brand-compliant creative prompts. Let's explore the benefits of using the 
-                    SAS Creative Prompt Generator.
-                </p>
-                
-                <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <h3>1. Ensure Brand Compliance</h3>
-                        <p>
-                            The SAS Creative Prompt Generator automatically incorporates our brand guidelines, 
-                            ensuring all creative work maintains consistency with SAS standards for colors, 
-                            typography, voice, and visual identity.
-                        </p>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <h3>2. Improve Creative Quality</h3>
-                        <p>
-                            Generate prompts that help AI tools understand SAS's unique voice and design 
-                            principles, resulting in higher-quality creative outputs that align with our 
-                            professional standards.
-                        </p>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <h3>3. Save Time on Projects</h3>
-                        <p>
-                            Reduce time spent on briefing AI tools about SAS requirements. Our generator 
-                            provides comprehensive prompts that include all necessary context and guidelines 
-                            upfront.
-                        </p>
-                    </div>
-                    
-                    <div class="benefit-item">
-                        <h3>4. Streamline Team Workflow</h3>
-                        <p>
-                            Provide consistent starting points for creative projects across marketing and 
-                            design teams, ensuring everyone works with the same brand standards and 
-                            quality expectations.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- How It Works -->
-            <div class="how-it-works-section">
-                <h3>How It Works</h3>
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-icon">1️⃣</div>
-                        <h4>Choose Task</h4>
-                        <p>Select what type of creative work you need help with</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-icon">2️⃣</div>
-                        <h4>Describe Project</h4>
-                        <p>Tell us about your goals and attach any relevant files</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-icon">3️⃣</div>
-                        <h4>Get Your Prompt</h4>
-                        <p>Copy the generated prompt and use it with any AI tool</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Quick Examples -->
-            <div class="examples-section">
-                <h3>Popular Creative Projects</h3>
-                <div class="examples-grid">
-                    <div class="example-card" data-example="campaign">
-                        <h4>Campaign Review</h4>
-                        <p>"Review my Q4 product launch campaign materials for SAS brand compliance"</p>
-                    </div>
-                    <div class="example-card" data-example="website">
-                        <h4>Website Copy</h4>
-                        <p>"Create homepage copy for our new analytics solution that follows SAS voice guidelines"</p>
-                    </div>
-                    <div class="example-card" data-example="social">
-                        <h4>Social Media</h4>
-                        <p>"Generate LinkedIn post ideas for SAS Innovate conference that match our brand tone"</p>
-                    </div>
-                    <div class="example-card" data-example="email">
-                        <h4>Email Marketing</h4>
-                        <p>"Improve this email subject line to be more engaging while staying on-brand"</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Brand Guidelines Reference -->
-            <div class="guidelines-section">
-                <div class="guidelines-card">
-                    <div class="guidelines-header">
-                        <h3>🎯 Built-in SAS Brand Compliance</h3>
-                        <a href="sas-brand-guidelines.pdf" target="_blank" class="guidelines-download">
-                            <span>Download Guidelines PDF</span>
-                            <span class="download-icon">📄</span>
-                        </a>
-                    </div>
-                    <div class="guidelines-grid">
-                        <div class="guideline-item">
-                            <strong>Colors:</strong> SAS Blue (#0766D1), proper accent usage
-                        </div>
-                        <div class="guideline-item">
-                            <strong>Voice:</strong> Bold, accessible, dynamic, relevant
-                        </div>
-                        <div class="guideline-item">
-                            <strong>Typography:</strong> Anova font family guidelines
-                        </div>
-                        <div class="guideline-item">
-                            <strong>Reference:</strong> sas-brand-guidelines.pdf
-                        </div>
-                    </div>
-                    <div class="guidelines-note">
-                        <p><strong>Note:</strong> All generated prompts automatically reference the official SAS Brand Guidelines document to ensure consistent brand compliance across all AI-generated content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
 
     <!-- Footer -->
     <footer class="footer">
