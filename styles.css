@@ -1,3 +1,45 @@
+/* Anova Font - Official SAS Brand Typography */
+/* Fonts loaded from local files */
+@font-face {
+    font-family: 'Anova';
+    src: url('fonts/Anova-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anova';
+    src: url('fonts/Anova-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anova';
+    src: url('fonts/Anova-Regular.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anova';
+    src: url('fonts/Anova-Bold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anova';
+    src: url('fonts/Anova-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* SAS Brand Colors */
 :root {
     /* Core Colors */
@@ -380,20 +422,7 @@ body {
     gap: var(--spacing-sm);
 }
 
-.feature-list li::before {
-    content: '✓';
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background-color: var(--sas-blue);
-    color: var(--white);
-    border-radius: 50%;
-    font-weight: var(--font-weight-bold);
-    font-size: 0.875rem;
-    flex-shrink: 0;
-}
+/* Checkmark icons are now inline SVG in HTML */
 
 .feature-list li:hover {
     transform: translateX(5px);
@@ -408,6 +437,84 @@ body {
 
 .feature-link:hover {
     text-decoration: underline;
+}
+
+/* AI Tools Section */
+.ai-tools-section {
+    margin-bottom: var(--spacing-xxl);
+}
+
+.ai-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.ai-tool-item {
+    background: linear-gradient(135deg, var(--white) 0%, var(--linen) 100%);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--fog);
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.ai-tool-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--sas-blue);
+}
+
+.ai-tool-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.ai-tool-item h4 {
+    font-size: 1.1rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--sas-blue);
+    margin: 0;
+}
+
+.ai-tool-item p {
+    font-size: 0.875rem;
+    color: var(--charcoal);
+    margin: 0;
+}
+
+/* Security Disclaimer */
+.security-disclaimer {
+    background: linear-gradient(135deg, #FFF3CD 0%, #FFF8E1 100%);
+    border: 2px solid var(--warning-orange);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+}
+
+.disclaimer-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.disclaimer-content {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+}
+
+.disclaimer-content strong {
+    color: var(--warning-orange);
+    font-weight: var(--font-weight-bold);
 }
 
 /* Benefits Grid */
@@ -906,7 +1013,7 @@ body {
 
 .prompt-text {
     padding: var(--spacing-lg);
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-family: var(--font-primary);
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--charcoal);
@@ -1042,7 +1149,7 @@ body {
 /* How It Works Section */
 .how-it-works-section {
     margin-bottom: var(--spacing-xxl);
-    text-align: center;
+    text-align: left;
     background: linear-gradient(135deg, var(--midnight-blue) 0%, var(--sas-blue) 100%);
     padding: var(--spacing-xxl) var(--spacing-xl);
     border-radius: var(--radius-xl);
@@ -1062,13 +1169,14 @@ body {
     border-radius: 50%;
 }
 
-.how-it-works-section h3 {
+.how-it-works-section h2 {
     font-size: 2rem;
     font-weight: var(--font-weight-bold);
     color: var(--white);
     margin-bottom: var(--spacing-xl);
     position: relative;
     z-index: 1;
+    text-align: left;
 }
 
 .steps-grid {
@@ -1215,6 +1323,10 @@ body {
     position: relative;
 }
 
+.guidelines-section h2 {
+    text-align: left;
+}
+
 .guidelines-card {
     background: linear-gradient(135deg, var(--light-blue) 0%, var(--linen) 100%);
     border-radius: var(--radius-xl);
@@ -1287,7 +1399,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
 }
 
 .guideline-item {
