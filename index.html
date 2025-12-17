@@ -39,6 +39,27 @@
             
             <!-- Main Generator Form -->
             <div class="generator-form-card">
+                <!-- Security Notice -->
+                <div class="security-notice-banner">
+                    <div class="security-notice-icon">⚠️</div>
+                    <div class="security-notice-content">
+                        <h3>Security Notice</h3>
+                        <p><strong>Do not share sensitive, confidential, or proprietary SAS information with any AI tool except Microsoft Copilot, which is approved for internal use.</strong> Always follow SAS data security policies when using external AI platforms.</p>
+                    </div>
+                </div>
+
+                <!-- PDF Upload Reminder -->
+                <div class="pdf-reminder-banner">
+                    <div class="pdf-reminder-icon">📎</div>
+                    <div class="pdf-reminder-content">
+                        <h3>Important: Attach SAS Brand Guidelines PDF</h3>
+                        <p>When copying the generated prompt to your AI tool, <strong>you MUST also upload the SAS Brand Guidelines PDF</strong> for accurate brand compliance analysis.</p>
+                        <a href="sas-brand-guidelines.pdf" target="_blank" class="pdf-download-link">
+                            <span>📄</span> Download SAS Brand Guidelines PDF
+                        </a>
+                    </div>
+                </div>
+
                 <form class="prompt-form" id="promptForm">
                     <!-- Task Selection -->
                     <div class="form-section">
@@ -95,7 +116,25 @@
                             <option value="AWS">Amazon Web Services (AWS)</option>
                             <option value="IBM">IBM</option>
                             <option value="Dataiku">Dataiku</option>
+                            <option value="Other">Other</option>
                         </select>
+                    </div>
+
+                    <!-- Analysis Type Selection (shown only for Competitive Analysis) -->
+                    <div class="form-section" id="analysisTypeSection" style="display: none;">
+                        <label class="form-label">What is the purpose of this analysis?</label>
+                        <div class="analysis-type-buttons">
+                            <button type="button" class="analysis-type-btn" data-analysis-type="inspiration">
+                                <span class="analysis-type-icon">💡</span>
+                                <span class="analysis-type-text">Inspiration</span>
+                                <span class="analysis-type-desc">Learn from competitor strategies to inspire new ideas</span>
+                            </button>
+                            <button type="button" class="analysis-type-btn" data-analysis-type="comparison">
+                                <span class="analysis-type-icon">⚖️</span>
+                                <span class="analysis-type-text">Direct Comparison</span>
+                                <span class="analysis-type-desc">Compare and differentiate against competitor approach</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Project Input -->
@@ -107,8 +146,9 @@
                             id="projectInput" 
                             name="projectInput" 
                             rows="4" 
-                            placeholder="e.g., Review my SAS Innovate 2026 landing page design for brand compliance..."
+                            placeholder="First, select a creative task above..."
                             class="main-input"
+                            disabled
                         ></textarea>
                         
                         <!-- File Upload -->

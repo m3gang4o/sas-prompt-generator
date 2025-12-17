@@ -6,6 +6,7 @@ class SASPromptGenerator {
         this.uploadedFile = null;
         this.selectedDesignType = null;
         this.selectedCompetitor = null;
+        this.selectedAnalysisType = null;
         this.promptTemplates = this.initializePromptTemplates();
         
         this.initializeEventListeners();
@@ -24,7 +25,7 @@ Your Task: Review and provide feedback on brand alignment
 
 SAS Brand Standards to Check:
 • Logo usage and exclusion zones
-• Color palette compliance (SAS Blue #0766D1 primary, proper accent usage)
+• Color palette compliance (#0766D1 primary, proper accent usage)
 • Typography (Anova font family, Arial fallback)
 • Voice attributes (Bold, Accessible, Dynamic, Relevant)
 • Shape language (grid-based, rounded, fluid)
@@ -85,7 +86,7 @@ Your Task: Analyze this digital design (web or mobile) and provide actionable im
 
 SAS Design Principles (sas-brand-guidelines.pdf):
 • Clarity with Impact: Bold, accessible, dynamic, relevant
-• Color System: SAS Blue primary, strategic accent usage
+• Color System: #0766D1 primary, strategic accent usage
 • Typography: Anova font family with proper hierarchy
 • Shape Language: Grid-based, rounded corners, fluid motion
 • Layout: White-dominant canvas, generous whitespace
@@ -127,7 +128,7 @@ Your Task: Analyze this print design (e.g., posters, brochures, event signage) a
 
 SAS Design Principles (sas-brand-guidelines.pdf):
 • Clarity with Impact: Bold, accessible, dynamic, relevant
-• Color System: SAS Blue primary, strategic accent usage
+• Color System: #0766D1 primary, strategic accent usage
 • Typography: Anova font family with proper hierarchy
 • Shape Language: Grid-based, rounded corners, fluid motion
 • Layout: White-dominant canvas, generous whitespace
@@ -147,7 +148,7 @@ Analysis Framework:
 - Text readability and type scaling for print size
 
 🎯 Brand Compliance
-- CMYK color matching with SAS Blue
+- CMYK color matching with #0766D1
 - Font weights, leading, and kerning for print readability
 - Logo clearspace and physical placement standards
 
@@ -179,7 +180,7 @@ SAS Brand Values & Positioning:
 • Accountability: Reliable, trustworthy, results-driven
 
 Creative Framework:
-• Leverage SAS Blue and brand colors strategically
+• Leverage #0766D1 and brand colors strategically
 • Incorporate authentic human stories and outcomes
 • Focus on data-driven insights and real business impact
 • Maintain professional credibility with creative flair
@@ -378,10 +379,96 @@ Analysis Framework:
 - Maintain SAS's human and collaborative tone while reinforcing credibility.
 - Keep the design polished, professional, and data-rich.
 
-Important: Reference SAS's "Clarity with Impact" and "Bold, Accessible, Dynamic, Relevant" design pillars in all creative recommendations.`
+Important: Reference SAS's "Clarity with Impact" and "Bold, Accessible, Dynamic, Relevant" design pillars in all creative recommendations.`,
+                        'Other': `You are a SAS Creative Strategy Expert. Using the SAS Brand Guidelines (sas-brand-guidelines.pdf), analyze this project against the specified competitor's marketing and creative approach.
+
+Your Task: Provide comprehensive competitive analysis and strategic recommendations to help SAS differentiate and strengthen its creative positioning.
+
+General Competitive Analysis Framework:
+📊 Competitor Research
+- Analyze the competitor's current marketing strategy, messaging, and visual identity
+- Identify their key value propositions and target audience positioning
+- Assess their creative approach, tone, and brand personality
+
+📣 Message & Positioning Comparison
+- Compare SAS's messaging with the competitor's approach
+- Identify overlaps and unique differentiation opportunities
+- Evaluate tone, voice, and emotional resonance
+
+🎨 Creative & Visual Strategy
+- Analyze design language, color usage, typography, and imagery
+- Compare digital presence and user experience approaches
+- Assess brand consistency and creative execution quality
+
+🎯 Differentiation Opportunities
+- Highlight areas where SAS can stand out authentically
+- Leverage SAS's unique strengths: analytics heritage, transparency, human-centered AI
+- Identify gaps in competitor's approach that SAS can fill
+
+🚀 Strategic Recommendations
+- Provide actionable creative direction aligned with SAS brand guidelines
+- Suggest messaging refinements to enhance differentiation
+- Recommend visual and design improvements
+
+📌 Next Steps
+- Prioritize recommendations based on impact and feasibility
+- Ensure all suggestions align with SAS's brand pillars: Bold, Accessible, Dynamic, Relevant
+
+Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) and ensure recommendations reinforce SAS's trusted, innovative, and human-centered identity.`
                     };
                     
-                    return prompts[competitor] || `You are a SAS Creative Strategy Expert. Analyze this project against the selected competitor's marketing approach and provide strategic recommendations.`;
+                    return prompts[competitor] || prompts['Other'];
+                },
+                getPromptWithAnalysisType: (competitor, analysisType) => {
+                    const basePrompts = {
+                        'Oracle': 'Oracle',
+                        'Google': 'Google',
+                        'Microsoft': 'Microsoft',
+                        'AWS': 'AWS',
+                        'IBM': 'IBM',
+                        'Dataiku': 'Dataiku',
+                        'Other': 'Other'
+                    };
+                    
+                    const competitorName = basePrompts[competitor] || 'the selected competitor';
+                    
+                    if (analysisType === 'inspiration') {
+                        return `You are a SAS Creative Strategy Expert. Using the SAS Brand Guidelines (sas-brand-guidelines.pdf), analyze ${competitorName}'s marketing approach to identify inspiring strategies and creative ideas that SAS can adapt while maintaining its unique brand identity.
+
+Your Task: Extract valuable insights and creative inspiration from ${competitorName}'s approach to enhance SAS's marketing and creative work.
+
+Inspiration-Focused Analysis:
+💡 What's Working Well
+- Identify successful strategies, creative executions, and messaging approaches
+- Highlight innovative tactics worth considering for SAS
+- Note effective use of channels, formats, and engagement methods
+
+✨ Creative Inspiration
+- Analyze compelling visual design elements and creative concepts
+- Identify storytelling techniques and narrative approaches
+- Examine audience engagement and community-building strategies
+
+🎨 Adaptation Opportunities
+- Suggest how SAS can adapt successful elements while staying true to brand
+- Propose creative directions inspired by competitor's strengths
+- Recommend ways to blend inspiration with SAS's unique voice and values
+
+🚀 Innovation Ideas
+- Generate fresh concepts sparked by competitor analysis
+- Suggest modern approaches to traditional SAS messaging
+- Propose experimental creative directions worth testing
+
+📌 Implementation Guidance
+- Prioritize most valuable inspirations for SAS
+- Ensure all adaptations align with SAS Brand Guidelines
+- Maintain SAS's authentic voice: Bold, Accessible, Dynamic, Relevant
+
+Important: This is about learning and inspiration, not imitation. Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) and ensure recommendations strengthen SAS's unique position in the market.`;
+                    } else {
+                        // Comparison type - use existing detailed competitor prompts
+                        const prompts = this.promptTemplates['competitive-analysis'].getPromptForCompetitor(competitor);
+                        return prompts;
+                    }
                 }
             }
         };
@@ -402,9 +489,23 @@ Important: Reference SAS's "Clarity with Impact" and "Bold, Accessible, Dynamic,
             btn.addEventListener('click', () => this.selectDesignType(btn));
         });
 
+        // Analysis type selection buttons
+        document.querySelectorAll('.analysis-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.selectAnalysisType(btn));
+        });
+
         // Competitor dropdown
         document.getElementById('competitorSelect').addEventListener('change', (e) => {
             this.selectedCompetitor = e.target.value;
+            // Show analysis type section when competitor is selected
+            const analysisTypeSection = document.getElementById('analysisTypeSection');
+            if (this.selectedCompetitor && this.selectedTask === 'competitive-analysis') {
+                analysisTypeSection.style.display = 'block';
+            } else {
+                analysisTypeSection.style.display = 'none';
+                this.selectedAnalysisType = null;
+                document.querySelectorAll('.analysis-type-btn').forEach(btn => btn.classList.remove('selected'));
+            }
             this.updateGenerateButton();
         });
 
@@ -443,29 +544,42 @@ Important: Reference SAS's "Clarity with Impact" and "Bold, Accessible, Dynamic,
         const designTypeSection = document.getElementById('designTypeSection');
         const competitorSection = document.getElementById('competitorSection');
         
+        const analysisTypeSection = document.getElementById('analysisTypeSection');
+        
         if (this.selectedTask === 'design-feedback') {
             designTypeSection.style.display = 'block';
             competitorSection.style.display = 'none';
+            analysisTypeSection.style.display = 'none';
             this.selectedCompetitor = null;
+            this.selectedAnalysisType = null;
         } else if (this.selectedTask === 'competitive-analysis') {
             competitorSection.style.display = 'block';
             designTypeSection.style.display = 'none';
+            analysisTypeSection.style.display = 'none';
             this.selectedDesignType = null;
+            this.selectedAnalysisType = null;
             // Reset design type selection
             document.querySelectorAll('.design-type-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('.analysis-type-btn').forEach(btn => btn.classList.remove('selected'));
         } else {
             designTypeSection.style.display = 'none';
             competitorSection.style.display = 'none';
+            analysisTypeSection.style.display = 'none';
             this.selectedDesignType = null;
             this.selectedCompetitor = null;
+            this.selectedAnalysisType = null;
             // Reset selections
             document.querySelectorAll('.design-type-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('.analysis-type-btn').forEach(btn => btn.classList.remove('selected'));
         }
         
-        // Update placeholder text based on selected task
+        // Enable and update placeholder text based on selected task
+        const projectInput = document.getElementById('projectInput');
         const template = this.promptTemplates[this.selectedTask];
+        
         if (template && template.example) {
-            document.getElementById('projectInput').placeholder = template.example;
+            projectInput.placeholder = template.example;
+            projectInput.disabled = false;
         }
         
         this.updateGenerateButton();
@@ -478,6 +592,17 @@ Important: Reference SAS's "Clarity with Impact" and "Bold, Accessible, Dynamic,
         // Add selection to clicked button
         button.classList.add('selected');
         this.selectedDesignType = button.dataset.designType;
+        
+        this.updateGenerateButton();
+    }
+
+    selectAnalysisType(button) {
+        // Remove previous selection
+        document.querySelectorAll('.analysis-type-btn').forEach(btn => btn.classList.remove('selected'));
+        
+        // Add selection to clicked button
+        button.classList.add('selected');
+        this.selectedAnalysisType = button.dataset.analysisType;
         
         this.updateGenerateButton();
     }
@@ -658,9 +783,13 @@ Important: Reference SAS's "Clarity with Impact" and "Bold, Accessible, Dynamic,
         if (this.selectedTask === 'design-feedback') {
             basePrompt = this.selectedDesignType === 'web' ? template.webPrompt : template.printPrompt;
         } 
-        // Handle competitive analysis with competitor
+        // Handle competitive analysis with competitor and analysis type
         else if (this.selectedTask === 'competitive-analysis') {
-            basePrompt = template.getPromptForCompetitor(this.selectedCompetitor);
+            if (this.selectedAnalysisType) {
+                basePrompt = template.getPromptWithAnalysisType(this.selectedCompetitor, this.selectedAnalysisType);
+            } else {
+                basePrompt = template.getPromptForCompetitor(this.selectedCompetitor);
+            }
         }
         // Handle all other tasks
         else {
@@ -771,7 +900,10 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
         });
         
         // Reset form fields
-        document.getElementById('projectInput').value = '';
+        const projectInput = document.getElementById('projectInput');
+        projectInput.value = '';
+        projectInput.disabled = true;
+        projectInput.placeholder = 'First, select a creative task above...';
         
         // Reset file upload
         this.removeFile();
@@ -792,7 +924,10 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
 
     clearForm() {
         // Reset form fields only (keep results if they exist)
-        document.getElementById('projectInput').value = '';
+        const projectInput = document.getElementById('projectInput');
+        projectInput.value = '';
+        projectInput.disabled = true;
+        projectInput.placeholder = 'First, select a creative task above...';
         
         // Reset task selection
         document.querySelectorAll('.task-btn').forEach(btn => {
