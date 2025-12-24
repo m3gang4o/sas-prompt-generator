@@ -525,6 +525,7 @@ Important: This is about learning and inspiration, not imitation. Always referen
 
         // Copy and reset buttons
         document.getElementById('copyBtn').addEventListener('click', () => this.copyPrompt());
+        document.getElementById('downloadPackageBtn').addEventListener('click', () => this.downloadPackage());
         document.getElementById('newPromptBtn').addEventListener('click', () => this.resetForm());
         document.getElementById('clearBtn').addEventListener('click', () => this.clearForm());
 
@@ -543,9 +544,9 @@ Important: This is about learning and inspiration, not imitation. Always referen
         // Show/hide design type section for Design Feedback
         const designTypeSection = document.getElementById('designTypeSection');
         const competitorSection = document.getElementById('competitorSection');
-        
         const analysisTypeSection = document.getElementById('analysisTypeSection');
-        
+        const projectSection = document.getElementById('projectSection');
+
         if (this.selectedTask === 'design-feedback') {
             designTypeSection.style.display = 'block';
             competitorSection.style.display = 'none';
@@ -573,7 +574,8 @@ Important: This is about learning and inspiration, not imitation. Always referen
             document.querySelectorAll('.analysis-type-btn').forEach(btn => btn.classList.remove('selected'));
         }
         
-        // Enable and update placeholder text based on selected task
+        // Show Step 2 (project section) and enable input
+        projectSection.style.display = 'block';
         const projectInput = document.getElementById('projectInput');
         const template = this.promptTemplates[this.selectedTask];
         
@@ -890,6 +892,160 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
         document.body.removeChild(textArea);
     }
 
+    async downloadPackage() {
+        const downloadBtn = document.getElementById('downloadPackageBtn');
+        const originalHTML = downloadBtn.innerHTML;
+        
+        try {
+            // Show loading state
+            downloadBtn.innerHTML = '<span class="download-icon">⏳</span> Creating Package...';
+            downloadBtn.disabled = true;
+            
+            // Check if JSZip is available
+            if (typeof JSZip === 'undefined') {
+                throw new Error('JSZip library not loaded');
+            }
+            
+            const zip = new JSZip();
+            const promptText = document.getElementById('promptText').textContent;
+            
+            // Add the generated prompt
+            zip.file('01-YOUR-PROMPT.txt', promptText);
+            
+            // Create instructions file
+            const instructions = this.createInstructionsFile();
+            zip.file('02-INSTRUCTIONS.txt', instructions);
+            
+            // Fetch and add the SAS Brand Guidelines PDF
+            try {
+                const pdfResponse = await fetch('sas-brand-guidelines.pdf');
+                if (pdfResponse.ok) {
+                    const pdfBlob = await pdfResponse.blob();
+                    zip.file('03-sas-brand-guidelines.pdf', pdfBlob);
+                } else {
+                    throw new Error('Could not fetch SAS Brand Guidelines PDF');
+                }
+            } catch (pdfError) {
+                console.error('Error fetching PDF:', pdfError);
+                // Add a note if PDF couldn't be included
+                const pdfNote = `SAS BRAND GUIDELINES PDF - DOWNLOAD REQUIRED
+========================================
+
+The SAS Brand Guidelines PDF could not be automatically included in this package.
+
+Please download it manually from:
+${window.location.origin}/sas-brand-guidelines.pdf
+
+This PDF is REQUIRED for the AI to provide accurate brand compliance analysis.
+`;
+                zip.file('03-SAS-BRAND-GUIDELINES-INFO.txt', pdfNote);
+            }
+            
+            // If user uploaded a file, add it to the ZIP
+            if (this.uploadedFile) {
+                zip.file(`04-${this.uploadedFile.name}`, this.uploadedFile);
+            }
+            
+            // Generate the ZIP file
+            const blob = await zip.generateAsync({ type: 'blob' });
+            
+            // Create download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `SAS-Prompt-Package-${new Date().toISOString().slice(0, 10)}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Show success state
+            downloadBtn.innerHTML = '<span class="download-icon">✅</span> Downloaded!';
+            this.showNotification('Package downloaded successfully! Extract the ZIP and upload all files to your AI tool.', 'success');
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                downloadBtn.innerHTML = originalHTML;
+                downloadBtn.disabled = false;
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Error creating package:', error);
+            this.showNotification('Error creating download package. Please try copying the prompt instead.', 'error');
+            downloadBtn.innerHTML = originalHTML;
+            downloadBtn.disabled = false;
+        }
+    }
+
+    createInstructionsFile() {
+        const taskName = this.promptTemplates[this.selectedTask]?.name || 'Creative Task';
+        
+        return `SAS CREATIVE PROMPT GENERATOR - INSTRUCTIONS
+========================================
+
+Thank you for using the SAS Creative Prompt Generator!
+
+WHAT'S IN THIS PACKAGE:
+-----------------------
+1. 01-YOUR-PROMPT.txt - Your generated AI prompt
+2. 02-INSTRUCTIONS.txt - This file (step-by-step guide)
+3. 03-sas-brand-guidelines.pdf - SAS Brand Guidelines (REQUIRED)
+${this.uploadedFile ? `4. 04-${this.uploadedFile.name} - Your uploaded file\n` : ''}
+
+✅ ALL FILES ARE INCLUDED! No need to download anything separately.
+
+HOW TO USE THIS PACKAGE:
+------------------------
+
+STEP 1: Extract the ZIP File
+   • Unzip this package to a folder on your computer
+   • You should see all the files listed above
+
+STEP 2: Open Your Preferred AI Tool
+   Approved for internal use:
+   • Microsoft Copilot (recommended for sensitive SAS information)
+   
+   External tools (do NOT share confidential SAS info):
+   • ChatGPT (https://chat.openai.com)
+   • Claude (https://claude.ai)
+   • Other AI assistants
+
+STEP 3: Upload the Files to Your AI Tool
+   Upload these files from the extracted folder in this order:
+   1. 03-sas-brand-guidelines.pdf (REQUIRED for brand analysis)
+   ${this.uploadedFile ? `2. 04-${this.uploadedFile.name} (your project file)\n   ` : ''}
+   
+   💡 TIP: Most AI tools let you drag and drop files or use an upload button
+
+STEP 4: Paste the Prompt
+   • Open "01-YOUR-PROMPT.txt" from the extracted folder
+   • Copy the entire prompt text
+   • Paste it into your AI tool's chat box
+
+STEP 5: Generate Your Results
+   • Press Enter or click Send in your AI tool
+   • The AI will analyze your project using SAS brand guidelines
+   • Review the results and iterate as needed
+
+SELECTED TASK: ${taskName}
+GENERATED ON: ${new Date().toLocaleString()}
+
+SECURITY REMINDER:
+------------------
+⚠️ Do not share sensitive, confidential, or proprietary SAS information 
+   with any AI tool except Microsoft Copilot, which is approved for 
+   internal use. Always follow SAS data security policies.
+
+NEED HELP?
+----------
+Visit the SAS Creative Prompt Generator for more information or to 
+generate a new prompt.
+
+========================================
+© ${new Date().getFullYear()} SAS Institute Inc.
+`;
+    }
+
     resetForm() {
         // Reset selections
         this.selectedTask = null;
@@ -898,6 +1054,9 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
         document.querySelectorAll('.task-btn').forEach(btn => {
             btn.classList.remove('selected');
         });
+        
+        // Hide project section (Step 2)
+        document.getElementById('projectSection').style.display = 'none';
         
         // Reset form fields
         const projectInput = document.getElementById('projectInput');
@@ -928,6 +1087,9 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
         projectInput.value = '';
         projectInput.disabled = true;
         projectInput.placeholder = 'First, select a creative task above...';
+        
+        // Hide project section (Step 2)
+        document.getElementById('projectSection').style.display = 'none';
         
         // Reset task selection
         document.querySelectorAll('.task-btn').forEach(btn => {

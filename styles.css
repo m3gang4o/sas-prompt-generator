@@ -343,33 +343,34 @@ body {
 
 /* Security Notice Banner */
 .security-notice-banner {
-    background: linear-gradient(135deg, #FFF3CD 0%, #FFF8E1 100%);
-    border: 2px solid var(--warning-orange);
+    background-color: #FEFCF8;
+    border: 1px solid #F3E8D8;
+    border-left: 3px solid #E8B86D;
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
     display: flex;
     gap: var(--spacing-sm);
     align-items: flex-start;
-    box-shadow: 0 2px 8px rgba(253, 126, 20, 0.15);
 }
 
 .security-notice-icon {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     flex-shrink: 0;
     line-height: 1;
+    opacity: 0.7;
 }
 
 .security-notice-content h3 {
-    font-size: 0.95rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--warning-orange);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-semibold);
+    color: #8B6914;
     margin: 0 0 0.25rem 0;
 }
 
 .security-notice-content p {
     font-size: 0.85rem;
-    color: var(--charcoal);
+    color: #5A5A5A;
     line-height: 1.5;
     margin: 0;
 }
@@ -438,8 +439,14 @@ body {
     display: block;
     font-weight: var(--font-weight-semibold);
     color: var(--midnight-blue);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
     font-size: 1rem;
+}
+
+.step-label {
+    color: var(--sas-blue);
+    font-weight: var(--font-weight-bold);
+    margin-right: 0.5rem;
 }
 
 /* Main Content */
@@ -1190,6 +1197,7 @@ body {
 }
 
 .copy-btn,
+.download-package-btn,
 .new-prompt-btn {
     display: flex;
     align-items: center;
@@ -1211,6 +1219,17 @@ body {
 
 .copy-btn:hover {
     background-color: var(--midnight-blue);
+}
+
+.download-package-btn {
+    background: linear-gradient(135deg, var(--success-green) 0%, #20894a 100%);
+    color: var(--white);
+}
+
+.download-package-btn:hover {
+    background: linear-gradient(135deg, #20894a 0%, #1a6f3d 100%);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 .new-prompt-btn {

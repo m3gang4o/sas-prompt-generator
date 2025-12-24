@@ -63,7 +63,9 @@
                 <form class="prompt-form" id="promptForm">
                     <!-- Task Selection -->
                     <div class="form-section">
-                        <label class="form-label">Choose your creative task:</label>
+                        <label class="form-label">
+                            <span class="step-label">Step 1:</span> Choose your creative task
+                        </label>
                         <div class="task-buttons">
                             <button type="button" class="task-btn" data-task="brand-review">
                                 <span class="task-icon">🛡️</span>
@@ -138,9 +140,9 @@
                     </div>
 
                     <!-- Project Input -->
-                    <div class="form-section">
+                    <div class="form-section" id="projectSection" style="display: none;">
                         <label for="projectInput" class="form-label">
-                            Describe your project:
+                            <span class="step-label">Step 2:</span> Describe your project
                         </label>
                         <textarea 
                             id="projectInput" 
@@ -188,6 +190,10 @@
                             <button type="button" class="copy-btn" id="copyBtn">
                                 <span class="copy-icon">📋</span>
                                 Copy Prompt
+                            </button>
+                            <button type="button" class="download-package-btn" id="downloadPackageBtn">
+                                <span class="download-icon">📦</span>
+                                Download Package
                             </button>
                             <button type="button" class="new-prompt-btn" id="newPromptBtn">
                                 Generate Another
@@ -242,6 +248,8 @@
         </div>
     </footer>
 
+    <!-- JSZip library for creating ZIP files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
