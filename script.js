@@ -850,6 +850,9 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
         try {
             await navigator.clipboard.writeText(promptText);
             
+            // Store prompt in browser extension if available
+            this.storePromptInExtension(promptText);
+            
             // Show success feedback
             copyFeedback.style.display = 'block';
             copyBtn.innerHTML = '<span class="copy-icon">✅</span> Copied!';
@@ -864,6 +867,37 @@ Important: Always reference the SAS Brand Guidelines (sas-brand-guidelines.pdf) 
             // Fallback for older browsers
             this.fallbackCopyToClipboard(promptText, copyBtn, copyFeedback);
         }
+    }
+    
+    storePromptInExtension(promptText) {
+        console.log('Attempting to store prompt in extension...');
+        
+        const fileInfo = [];
+        
+        // Collect file information if a file was uploaded
+        if (this.uploadedFile) {
+            fileInfo.push({
+                name: this.uploadedFile.name,
+                size: this.uploadedFile.size,
+                type: this.uploadedFile.type
+            });
+        }
+        
+        // Always include SAS Brand Guidelines
+        fileInfo.push({
+            name: 'sas-brand-guidelines.pdf',
+            size: 'Required',
+            type: 'application/pdf'
+        });
+        
+        // Use postMessage to communicate with extension content script
+        window.postMessage({
+            type: 'SAS_STORE_PROMPT',
+            prompt: promptText,
+            files: fileInfo
+        }, window.location.origin);
+        
+        console.log('Sent prompt to extension via postMessage');
     }
 
     fallbackCopyToClipboard(text, copyBtn, copyFeedback) {

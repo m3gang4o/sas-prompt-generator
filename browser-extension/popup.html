@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAS Creative Prompt Transfer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+    }
+    
+    .container {
+      padding: 20px;
+    }
+    
+    .header {
+      background: #0766D1;
+      color: white;
+      padding: 16px 20px;
+      margin: -20px -20px 20px -20px;
+    }
+    
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    
+    .status {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .status-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin: 0 auto 12px;
+    }
+    
+    .status-icon.ready {
+      background: #e8f5e9;
+    }
+    
+    .status-icon.empty {
+      background: #fff3e0;
+    }
+    
+    .status h2 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .status p {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      line-height: 1.5;
+    }
+    
+    .prompt-preview {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px;
+      margin: 12px 0;
+      max-height: 120px;
+      overflow-y: auto;
+      font-size: 11px;
+      color: #333;
+      line-height: 1.4;
+    }
+    
+    .files-list {
+      margin-top: 12px;
+    }
+    
+    .file-item {
+      background: #f0f0f0;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .file-icon {
+      font-size: 14px;
+    }
+    
+    .platforms {
+      display: grid;
+      gap: 8px;
+    }
+    
+    .platform-btn {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .platform-btn:hover {
+      border-color: #0766D1;
+      background: #f8fbff;
+    }
+    
+    .platform-btn:active {
+      transform: scale(0.98);
+    }
+    
+    .platform-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .platform-btn.disabled:hover {
+      border-color: #e0e0e0;
+      background: white;
+    }
+    
+    .platform-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 8px;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: #0766D1;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #0555b0;
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #666;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .btn-secondary:hover {
+      background: #f5f5f5;
+    }
+    
+    .instructions {
+      background: #fff9e6;
+      border: 1px solid #ffe082;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 16px;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #666;
+    }
+    
+    .instructions strong {
+      color: #333;
+      display: block;
+      margin-bottom: 6px;
+    }
+    
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      color: #999;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Creative Prompt Transfer</h1>
+      <p>Transfer prompts to AI platforms</p>
+    </div>
+    
+    <div id="status" class="status">
+      <div class="status-icon empty">⚠️</div>
+      <h2>No Prompt Stored</h2>
+      <p>Copy a prompt from the SAS Creative Prompt Generator to get started.</p>
+    </div>
+    
+    <div id="promptPreview" style="display: none;">
+      <div class="prompt-preview" id="promptText"></div>
+      <div class="files-list" id="filesList"></div>
+    </div>
+    
+    <div class="platforms">
+      <button class="platform-btn" id="btnChatGPT" disabled>
+        <div class="platform-icon" style="background: #10a37f;">🤖</div>
+        <span>Open in ChatGPT</span>
+      </button>
+      
+      <button class="platform-btn" id="btnClaude" disabled>
+        <div class="platform-icon" style="background: #d97757;">🧠</div>
+        <span>Open in Claude</span>
+      </button>
+      
+      <button class="platform-btn" id="btnGemini" disabled>
+        <div class="platform-icon" style="background: #4285f4;">✨</div>
+        <span>Open in Gemini</span>
+      </button>
+      
+      <button class="platform-btn" id="btnCopilot" disabled>
+        <div class="platform-icon" style="background: #0078d4;">💬</div>
+        <span>Open in Copilot</span>
+      </button>
+    </div>
+    
+    <div class="actions">
+      <button class="btn btn-secondary" id="btnClear">Clear Stored Prompt</button>
+      <button class="btn btn-primary" id="btnRefresh">Refresh</button>
+    </div>
+    
+    <div class="instructions">
+      <strong>📋 How to use:</strong>
+      1. Copy a prompt from the Creative Prompt Generator<br>
+      2. Click on an AI platform button above<br>
+      3. Paste the prompt and upload your files manually<br>
+      4. The extension will help you remember which files to upload
+    </div>
+    
+    <div class="footer">
+      SAS Creative Prompt Transfer v1.0.0
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
